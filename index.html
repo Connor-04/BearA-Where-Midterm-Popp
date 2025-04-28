@@ -5,7 +5,7 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>BearA-Where Tracker</title>
 
-  <!-- Added the CSS for styling the button and map -->
+  <!-- Original simple style for button and map -->
   <style>
     html,
     body,
@@ -20,8 +20,8 @@
       position: absolute;
       bottom: 5%;
       right: 5%;
-      width: 60px; /* original size */
-      height: 60px; /* original size */
+      width: 50px;
+      height: 50px;
       background-color: #0079c1;
       border-radius: 50%;
       border: none;
@@ -31,15 +31,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 14px; /* original smaller font size */
+      font-size: 10px;
       color: white;
       z-index: 10;
       text-align: center;
     }
 
     .addRecordBtn img {
-      width: 40%;
-      height: 40%;
+      width: 50%;
+      height: 50%;
       object-fit: contain;
       margin-bottom: 2px;
     }
@@ -49,7 +49,7 @@
     }
   </style>
 
-  <!-- ArcGIS CSS and JS -->
+  <!-- ArcGIS CDN -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.26/"></script>
 </head>
@@ -77,23 +77,23 @@
       "esri/widgets/Search"
     ], function(esriConfig, Map, MapView, FeatureLayer, Graphic, PictureMarkerSymbol, Locate, Search) {
 
-      // Added your API Key
+      // Passed the API Key
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurNAUgv3aeRUmzJ4ckMevLQLfVJhdc-z1-a5rmBvbZM6HiAtWhTkHR1uPqL3lwJdP49LWHB6rjySi-OGZeNP1ea6oiztHSf22dFyO6r4o94L1an9zLTOBsN3vlqSz7k8MyUO9e1udJ3zNViSQ518xOFVwCnGBfyh40rSb4E2X3zsumGVzsUowRjXGPUi8Odwr1Y9iVZinjPQa-7TSBIuR8E4.AT1_EtHHMprs";
 
-      // Created the Map with a topographic basemap
+      // Created map using topo basemap
       const map = new Map({
-        basemap: "topo-vector" // Topographic basemap
+        basemap: "topo-vector"
       });
 
-      // Created the View centered over Yellowstone NP
+      // Created view centered at Yellowstone
       const view = new MapView({
         container: "viewDiv",
         map: map,
-        center: [-110.5885, 44.4279], // Yellowstone National Park (longitude, latitude)
+        center: [-110.5885, 44.4279],
         zoom: 8
       });
 
-      // Added Locate Widget (to override if user location available)
+      // Added Locate Widget
       const locateBtn = new Locate({
         view: view
       });
@@ -110,7 +110,7 @@
         index: 1
       });
 
-      // Created Bear Sightings Layer
+      // Created Bear Sightings FeatureLayer
       const bearLayer = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_f6e3a2bc6b344cd385416fde15ef7537_results/FeatureServer",
         title: "Bear Sightings",
@@ -127,27 +127,27 @@
           symbol: {
             type: "picture-marker",
             url: "./Bear_(653)_-_The_Noun_Project.svg.png",
-            width: "30px",
-            height: "30px"
+            width: "24px",
+            height: "24px"
           }
         }
       });
 
-      // Created NPS Trails Layer
+      // Created NPS Trails FeatureLayer
       const trailsLayer = new FeatureLayer({
         url: "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Trails/FeatureServer/0",
         title: "NPS Trails",
         opacity: 0.7
       });
 
-      // Added Bear Sightings and Trails Layer (Bear icons above Trails)
+      // Added layers
       map.add(trailsLayer);
       map.add(bearLayer);
 
     });
   </script>
 
-  <!-- Basemap Credit -->
+  <!-- Basemap Credit Footer -->
   <footer style="position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 10px; background-color: rgba(255, 255, 255, 0.7);">
     Basemap credit: Esri, USGS, NOAA
   </footer>
