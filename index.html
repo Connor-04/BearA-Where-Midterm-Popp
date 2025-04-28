@@ -3,13 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>BearA-Where Midterm - Popp</title>
+  <title>Bear-a-Where - Popp</title>
 
-  <!-- Added the CSS for the map and survey button -->
+  <!-- Added the CSS for the map and circular survey button -->
   <style>
-    html,
-    body,
-    #viewDiv {
+    html, body, #viewDiv {
       padding: 0;
       margin: 0;
       height: 100%;
@@ -18,17 +16,35 @@
 
     .addRecordBtn {
       position: absolute;
-      z-index: 10;
       bottom: 5%;
       right: 5%;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
       background-color: #0079c1;
       color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-      cursor: pointer;
+      font-size: 10px;
+      text-align: center;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .addRecordBtn img {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 4px;
+    }
+
+    .addRecordBtn span {
+      display: block;
+      font-size: 9px;
+      line-height: 1.2;
+      max-width: 80px;
+      word-wrap: break-word;
     }
 
     .addRecordBtn:hover {
@@ -39,12 +55,16 @@
   <!-- Imported the CSS and library for esri.js -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
   <script src="https://js.arcgis.com/4.26/"></script>
+
 </head>
 
 <body>
 
-  <!-- Added the survey button -->
-  <a href="https://arcg.is/0O95bO1" target="_blank" class="addRecordBtn">Report a Bear Sighting</a>
+  <!-- Added the circular survey button -->
+  <a href="https://arcg.is/0O95bO1" target="_blank" class="addRecordBtn">
+    <img src="Bear_(653)_-_The_Noun_Project.svg.png" alt="Bear Icon" />
+    <span>Report Bear Sighting</span>
+  </a>
 
   <!-- Added the map container -->
   <div id="viewDiv"></div>
@@ -65,15 +85,15 @@
 
       // Created the map
       const map = new Map({
-        basemap: "satellite"
+        basemap: "topo" // Used topographic basemap
       });
 
       // Created the view
       const view = new MapView({
         container: "viewDiv",
         map: map,
-        center: [-81.3961, 30.3935], // Centered on Mayport NAS
-        zoom: 13
+        center: [-110.5885, 44.4279], // Centered on Yellowstone National Park
+        zoom: 10
       });
 
       // Added the Locate button
@@ -95,7 +115,7 @@
 
       // Created the Bear Sightings layer
       const bearSightings = new FeatureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_9406bd5bb2644706ac8a051c5f0023aa_results/FeatureServer",
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_f6e3a2bc6b344cd385416fde15ef7537_results/FeatureServer",
         title: "Bear Sightings",
         renderer: {
           type: "simple",
@@ -121,6 +141,10 @@
     });
   </script>
 
+  <!-- Added basemap credits -->
+  <footer style="position: absolute; bottom: 0; left: 0; font-size: 10px; background: rgba(255,255,255,0.7); padding: 4px;">
+    Basemap credits: Esri, USGS, NOAA
+  </footer>
+
 </body>
 </html>
-
